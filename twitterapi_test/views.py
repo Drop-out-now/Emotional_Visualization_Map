@@ -55,6 +55,7 @@ def index(request):
        'tweets':tweets,
        't_emotion':tokyo_emotion,
        'o_emotion':osaka_emotion,
+       'googlemap_key':CLIENT['GOOGLEMAP_KEY'],
   }
 
   print('tokyo_emotion: ', tokyo_emotion)
