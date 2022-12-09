@@ -20,9 +20,6 @@ params = {
 tweets = get_tweets.get_tweets(http,KEY,"",params)
 
 #templates/twitterapi_test/index.htmlに渡す変数の名称と値
-data = {
-  'tweets':tweets
-}
 
 auth = tweepy.OAuthHandler(CLIENT['API_KEY'], CLIENT['API_KEY_SECRET'])
 auth.set_access_token(CLIENT['ACCESS_TOKEN'], CLIENT['ACCESS_TOKEN_SECRET'])
@@ -36,6 +33,8 @@ analyzer = oseti.Analyzer()
 def index(request):
   tokyo_emotion = 0
   osaka_emotion = 0
+
+
   for tweet in tweets_tokyo_station:
     ana_result =  analyzer.analyze(tweet.full_text)
     for emotion_value in ana_result:
@@ -51,7 +50,13 @@ def index(request):
     print(ana_result)
     # print(tweet.full_text)
 
+
+  data = {
+       'tweets':tweets,
+       't_emotion':tokyo_emotion,
+       'o_emotion':osaka_emotion,
+  }
+
   print('tokyo_emotion: ', tokyo_emotion)
   print('osaka_emotion: ', osaka_emotion)
   return render(request,'twitterapi_test/index.html',data)
-
