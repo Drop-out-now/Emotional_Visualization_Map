@@ -2,10 +2,10 @@ from django.shortcuts import render
 import sys
 import urllib3
 sys.path.append('../') #下2つのimportに必要
-from config.config import CLIENT
+from Config.config import CLIENT
 from testcodes import get_tweets
 import tweepy
-import twitter
+# import twitter
 import oseti
 
 # Create your views here.
