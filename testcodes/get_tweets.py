@@ -1,6 +1,5 @@
 import urllib3
 import json
-import pprint
 from config.config import CLIENT
 
 http = urllib3.PoolManager()

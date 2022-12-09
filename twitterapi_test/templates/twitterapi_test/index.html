@@ -25,8 +25,10 @@ body { height: 100% }
 
 
 var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
-var TokyoLatLng = new google.maps.LatLng(35.6809591,139.7673068);
-var OsakaLatLng = new google.maps.LatLng(34.7024000,135.4959000);
+
+// var TokyoLatLng = new google.maps.LatLng(35.6809591,139.7673068);
+// var TokyoLatLng = new google.maps.LatLng(35.6809591,139.7673068);
+// var OsakaLatLng = new google.maps.LatLng(34.7024000,135.4959000);
 var Options = {
  zoom: 5,      //地図の縮尺値
  center: MyLatLng,    //地図の中心座標
@@ -58,20 +60,18 @@ function circle(LatLng,emotion){
     });
   }
 }
-circle(TokyoLatLng,{{ t_emotion }});
-circle(OsakaLatLng,{{ o_emotion }});
+
+for (var i=0; i<6; i++){
+  for (var j=0; j<6; j++){
+    var LatLng = new.google.maps.LatLng({{array_lalo.i.j.0}},{{array_lalo.i.j.1}});
+    circle(LatLng,{{emotion}});
+  }
+}
+// circle(TokyoLatLng,{{ t_emotion }});
+// circle(OsakaLatLng,{{ o_emotion }});
 
 
 </script>
-
-<h1>Tests</h1>
-tokyo_emotion={{t_emotion}}
-osaka_emotion={{o_emotion}}
-<p>
-{% for tweet in tweets %}
-<!-- tweetsはtwitterapi_test/views.pyで定義 -->
-<br> {{ tweet.text }} <br>
-{% endfor %}
 </body>
 </html>
 </p>
