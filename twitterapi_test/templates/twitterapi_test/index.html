@@ -1,0 +1,7 @@
+<h1>Tests</h1>
+<p>
+{% for tweet in tweets %} 
+<!-- tweetsはtwitterapi_test/views.pyで定義 -->
+<br> {{ tweet.text }} <br>  
+{% endfor %}
+</p>
