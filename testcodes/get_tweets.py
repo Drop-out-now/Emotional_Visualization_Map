@@ -1,6 +1,6 @@
 import urllib3
 import json
-from config.config import CLIENT
+from Config.config import CLIENT 
 
 http = urllib3.PoolManager()
 KEY = CLIENT['BEARER_TOKEN']
@@ -19,11 +19,3 @@ def get_tweets(http, key, searchId, searchField={}):
         return result['data']
     else:
         return req.status,result['error']
-
-
-params = {
-  'query':'おはよう世界',
-  'max_results': 10,
-}
-
-get_tweets(http,KEY,"",params)

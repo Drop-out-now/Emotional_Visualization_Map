@@ -20,10 +20,6 @@ body { height: 100% }
 
 <script>
 
-
-
-
-
 var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
 
 // var TokyoLatLng = new google.maps.LatLng(35.6809591,139.7673068);
@@ -35,6 +31,7 @@ var Options = {
  mapTypeId: 'roadmap'   //地図の種類
 };
 var map = new google.maps.Map(document.getElementById('map'), Options);
+
 function circle(LatLng,emotion){
   if(emotion>0){
     const cityCircle = new google.maps.Circle({
@@ -61,17 +58,19 @@ function circle(LatLng,emotion){
   }
 }
 
+var Array_lola = {{array_lola}};
+console.log(Array_lola);
+
 for (var i=0; i<6; i++){
   for (var j=0; j<6; j++){
-    var LatLng = new.google.maps.LatLng({{array_lalo.i.j.0}},{{array_lalo.i.j.1}});
-    circle(LatLng,{{emotion}});
+    var lo = Array_lola[i][j][0];
+    var la = Array_lola[i][j][1];
+    var emo = Array_lola[i][j][2];
+    var LatLng = new google.maps.LatLng(lo,la);
+    circle(LatLng,emo);
   }
 }
-// circle(TokyoLatLng,{{ t_emotion }});
-// circle(OsakaLatLng,{{ o_emotion }});
-
 
 </script>
 </body>
 </html>
-</p>
