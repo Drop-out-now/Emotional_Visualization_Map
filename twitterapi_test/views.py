@@ -15,16 +15,17 @@ analyzer = oseti.Analyzer()
 
 #longtitude 緯度,latitude 経度
 #northは最北端、westは最西端
-north_lo = 45.557228
-north_la = 148.752308
+north_lo = 37.869236
+north_la = 140.941908
 
-west_lo = 24.451389
-west_la = 122.9325
+west_lo = 34.588574
+west_la = 137.067516
 
-lat_num = 8 # 1辺の格子点数
+lat_num = 6 # 1辺の格子点数
 
 
 array_lola = [[[0 for i in range(3)] for j in range(lat_num)] for k in range(lat_num)] # [longtitude,latitude,emotion]　のlat_num*lat_numの二次元配列
+num_gettweet = 5
 
 #(lat_num-1)*(lat_num-1)の正方形に分けてlat_num^2の格子点を中心としてツイート取得
 for o in range(lat_num):
@@ -34,14 +35,15 @@ for o in range(lat_num):
     #列(経度)
     array_lola[o][a][1] = north_la - (north_la-west_la)/(lat_num-1)*(lat_num-1-a)
     
-    tweets = tweepy.Cursor(api.search_tweets, q='', geocode='{},{},10km'.format(array_lola[o][a][0],array_lola[o][a][1]), tweet_mode='extended').items(5)
+    tweets = tweepy.Cursor(api.search_tweets, q='', geocode='{},{},10km'.format(array_lola[o][a][0],array_lola[o][a][1]), tweet_mode='extended').items(num_gettweet)
 
     emotion = 0
     for tweet in tweets:
       ana_result =  analyzer.analyze(tweet.full_text)
       for emotion_value in ana_result:
         emotion += emotion_value
-    array_lola[o][a][2] = emotion
+      emotion = emotion/len(ana_result)
+    array_lola[o][a][2] = emotion/num_gettweet
 
     
 
