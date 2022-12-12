@@ -44,7 +44,7 @@ function circle(LatLng,emotion){
         fillColor: "#FF0000",
         strokeColor: "#FF0000"
     });
-  }else {
+  }else if (emotion<0){
     const cityCircle = new google.maps.Circle({
         strokeOpacity: 0.8,
         strokeWeight: 2,
