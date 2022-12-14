@@ -24,17 +24,14 @@ west_la = 137.067516
 lat_num = 6 # 1辺の格子点数
 
 
-#[longtitude,latitude,emotion]
+array_lola = [[[0 for i in range(4)] for j in range(lat_num)] for k in range(lat_num)] # [longtitude,latitude,emotion]　のlat_num*lat_numの二次元配列
+array_lola1 = [[0,0,0,[0 for l in range(5)]] for j in range(lat_num*lat_num)]
 #[[0,0,0,[0,0,0,0,0]],[0,0,0,[0,0,0,0,0]~~~]]みたいな配列
 #
 
 num_gettweet = 5
-#(lat_num-1)*(lat_num-1)の正方形に分けてlat_num^2の格子点を中心としてツイート取得
-
-array_lola = [[[0 for i in range(3)] for j in range(lat_num)] for k in range(lat_num)]
-array_lola1 = [[0,0,0,[0 for l in range(num_gettweet)]] for j in range(lat_num*lat_num)]
-
 z=0
+#(lat_num-1)*(lat_num-1)の正方形に分けてlat_num^2の格子点を中心としてツイート取得
 for o in range(lat_num):
   for a in range(lat_num):
     #行(緯度)
@@ -43,7 +40,7 @@ for o in range(lat_num):
 
     #列(経度)
     array_lola[o][a][1] = north_la - (north_la-west_la)/(lat_num-1)*(lat_num-1-a)
-    array_lola1[z][1] = north_la - (north_la-west_la)/(lat_num-1)*(lat_num-1-a)
+    array_lola1[z][1] = north_lo - (north_lo-west_lo)/(lat_num-1)*(lat_num-1-o)
 
     tweets = tweepy.Cursor(api.search_tweets, q='', geocode='{},{},10km'.format(array_lola[o][a][0],array_lola[o][a][1]), tweet_mode='extended').items(num_gettweet)
 
@@ -55,8 +52,10 @@ for o in range(lat_num):
       for emotion_value in ana_result:
         emotion += emotion_value
       emotion = emotion/len(ana_result)
+      array_lola[o][a][3] = tweet.full_text
       x=x+1
     array_lola[o][a][2] = emotion/num_gettweet
+
     array_lola1[z][2] = emotion/num_gettweet
     z=z+1
 
@@ -64,6 +63,7 @@ for o in range(lat_num):
 #デバッグ用
 print(array_lola)
 print(array_lola1)
+
 # tweets_tokyo_station = tweepy.Cursor(api.search_tweets, q='', geocode='35.680959106959,139.76730676352,10km', tweet_mode='extended').items(5)
 # tweets_osaka_station = tweepy.Cursor(api.search_tweets, q='', geocode='34.702485,135.495951,10km', tweet_mode='extended').items(5)
 
@@ -85,7 +85,6 @@ def index(request):
       # 'tweets':tweets,
       # 'emotion':emotion,
       'array_lola':array_lola,
-      'array_lola1':array_lola1,
       'googlemap_key':CLIENT['GOOGLEMAP_KEY']
       # 't_emotion':tokyo_emotion,
       # 'o_emotion':osaka_emotion,
