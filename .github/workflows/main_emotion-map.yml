@@ -60,4 +60,4 @@ jobs:
         with:
           app-name: 'emotion-map'
           slot-name: 'Production'
-          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_E830CBA528F747DE801EE0DEDDF62213 }}
+          publish-profile: ${{ secrets.AZUREAPPSERVICE_PUBLISHPROFILE_9E4DDDFF93CA4AF983DFCF2F9F650864 }}
