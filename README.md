@@ -1,2 +1,1 @@
 # Emotional_Visualization_Map
-以前の方はAPIキーを公開してしまってあったので移転しました。
