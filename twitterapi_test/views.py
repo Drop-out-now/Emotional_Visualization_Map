@@ -5,7 +5,6 @@ from Config.config import CLIENT
 import tweepy
 import oseti
 
-# Create your views here.
 
 auth = tweepy.OAuthHandler(CLIENT['API_KEY'], CLIENT['API_KEY_SECRET'])
 auth.set_access_token(CLIENT['ACCESS_TOKEN'], CLIENT['ACCESS_TOKEN_SECRET'])
