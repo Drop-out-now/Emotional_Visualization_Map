@@ -19,7 +19,8 @@ body { height: 100% }
 <div id="map"></div>
 
 <script>
-
+var Array_lola = {{array_lola}};
+var Array_lala1 = ({{array_lola1 | safe}});
 var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
 
 // var TokyoLatLng = new google.maps.LatLng(35.6809591,139.7673068);
@@ -32,9 +33,12 @@ var Options = {
 };
 var map = new google.maps.Map(document.getElementById('map'), Options);
 
+       //mapをクリックしたときのイベントを設定
+
+
 function circle(LatLng,emotion){
   if(emotion>0){
-    const cityCircle = new google.maps.Circle({
+    var cityCircle = new google.maps.Circle({
         strokeOpacity: 0.8,
         strokeWeight: 2,
         fillOpacity: 0.35,
@@ -44,8 +48,8 @@ function circle(LatLng,emotion){
         fillColor: "#FF0000",
         strokeColor: "#FF0000"
     });
-  }else if (emotion<0){
-    const cityCircle = new google.maps.Circle({
+  }else {
+    var cityCircle = new google.maps.Circle({
         strokeOpacity: 0.8,
         strokeWeight: 2,
         fillOpacity: 0.35,
@@ -56,9 +60,50 @@ function circle(LatLng,emotion){
         strokeColor: "#007BC3"
     });
   }
+  cityCircle.addListener('click', mylistener);
+  function mylistener(event){
+      //marker作成
+      var marker = new google.maps.Marker();
+      //markerの位置を設定
+      //event.latLng.lat()でクリックしたところの緯度を取得
+      marker.setPosition(new google.maps.LatLng(event.latLng.lat(), event.latLng.lng()));
+      //marker設置
+      var comment = LatLngkikaku(event.latLng.lat(), event.latLng.lng());
+      console.log(comment);
+      var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
+               content: '<div class="sample">'+comment[0]+'</div></br><div class="sample">'+comment[2]+'</div></br><div class="sample">'+comment[3]+'</div></br><div class="sample">'+comment[4]+'</div></br><div class="sample">'+comment[5]+'</div></br>' // 吹き出しに表示する内容
+      });
+      marker.addListener('click', function() { // マーカーをクリックしたとき
+          infoWindow.open(map, marker); // 吹き出しの表示
+      });
+      marker.setMap(map);
+  }
+
 }
 
-var Array_lola = {{array_lola}};
+
+function LatLngkikaku(makerlo,makerla){
+  var length = 10000000;
+  var o,a,emo;
+  var Array_tweets;
+  for(var i=0; i<36; i++){
+    var lo = Array_lala1[i][0];
+    var la = Array_lala1[i][1];
+    var r = (lo-makerlo)*(lo-makerlo)+(la-makerla)*(la-makerla);
+    if(length>r){
+      length = r;
+      o = lo;
+      a = la;
+      emo = Array_lala1[i][2];
+      Array_tweets = Array_lala1[i][3];
+    }
+  }
+  return Array_tweets;
+}
+
+console.log(LatLngkikaku(35.6811673, 139.7670516));
+
+console.log(Array_lala1)
 console.log(Array_lola);
 
 for (var i=0; i<6; i++){
