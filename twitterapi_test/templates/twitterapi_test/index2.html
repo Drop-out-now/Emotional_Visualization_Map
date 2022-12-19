@@ -20,8 +20,12 @@ body { height: 100% }
 
 <script>
 var Array_lola = {{array_lola | safe}};
+// var Array_lala1 = ({{array_lola1 | safe}});
 var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
 
+// var TokyoLatLng = new google.maps.LatLng(35.6809591,139.7673068);
+// var TokyoLatLng = new google.maps.LatLng(35.6809591,139.7673068);
+// var OsakaLatLng = new google.maps.LatLng(34.7024000,135.4959000);
 var Options = {
  zoom: 5,      //地図の縮尺値
  center: MyLatLng,    //地図の中心座標
@@ -40,18 +44,18 @@ function circle(LatLng,emotion){
         fillOpacity: 0.35,
         map,
         center: LatLng,
-        radius: 360000*emotion,
+        radius: 180000*emotion,
         fillColor: "#FF0000",
         strokeColor: "#FF0000"
     });
-  }else {
+  }else if (emotion<0) {
     var cityCircle = new google.maps.Circle({
         strokeOpacity: 0.8,
         strokeWeight: 2,
         fillOpacity: 0.35,
         map,
         center: LatLng,
-        radius: 360000*emotion,
+        radius: 180000*emotion,
         fillColor: "#007BC3",
         strokeColor: "#007BC3"
     });
@@ -68,7 +72,7 @@ function circle(LatLng,emotion){
       var comment = LatLngkikaku(event.latLng.lat(), event.latLng.lng());
       console.log(comment);
       var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
-               content: '<div class="sample">'+comment[0]+'</div></br><div class="sample">'+comment[1]+'</div></br><div class="sample">'+comment[2]+'</div></br><div class="sample">'+comment[3]+'</div></br><div class="sample">'+comment[4]+'</div></br>' // 吹き出しに表示する内容
+               content: '<div class="sample">'+comment[0]+'</div></br><div class="sample">'+comment[2]+'</div></br><div class="sample">'+comment[3]+'</div></br><div class="sample">'+comment[4]+'</div></br><div class="sample">'+comment[5]+'</div></br>' // 吹き出しに表示する内容
       });
       marker.addListener('click', function() { // マーカーをクリックしたとき
           infoWindow.open(map, marker); // 吹き出しの表示
