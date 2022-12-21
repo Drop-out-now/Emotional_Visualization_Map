@@ -4,6 +4,7 @@ sys.path.append('../') #下2つのimportに必要
 from Config.config import CLIENT
 import tweepy
 import oseti
+import datetime
 
 
 auth = tweepy.OAuthHandler(CLIENT['API_KEY'], CLIENT['API_KEY_SECRET'])
@@ -41,6 +42,7 @@ def make_lola(Array_lola):
 def index(request):
   data = {
       'array_lola':make_lola(array_lola),
+      'datetime':datetime.datetime.now(),
       'googlemap_key':CLIENT['GOOGLEMAP_KEY']
   }
 

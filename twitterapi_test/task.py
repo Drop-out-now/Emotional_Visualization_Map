@@ -12,7 +12,7 @@ def regular_execution(request):
   #views.py/indexと同じ処理
   data = {
       'array_lola':make_lola(array_lola),
-      'datatime':datetime.datetime.now(),
+      'datetime':datetime.datetime.now(),
       'googlemap_key':CLIENT['GOOGLEMAP_KEY']
   }
 
