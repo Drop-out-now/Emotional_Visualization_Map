@@ -18,7 +18,7 @@ def regular_execution(request):
 
   return render(request,'twitterapi_test/index.html',data)
 
-def start():
+def task():
   scheduler = BackgroundScheduler()
   scheduler.add_job(regular_execution, 'interval', args=['request'], minutes=1)
   scheduler.start()

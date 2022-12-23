@@ -6,5 +6,5 @@ class TwitterapiTestConfig(AppConfig):
     name = 'twitterapi_test'
 
     def ready(self):
-        from .task import start
-        start()
+        from .views import task
+        task()

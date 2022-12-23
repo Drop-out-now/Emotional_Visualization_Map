@@ -4,6 +4,7 @@ sys.path.append('../') #下2つのimportに必要
 from Config.config import CLIENT
 import tweepy
 import oseti
+from apscheduler.schedulers.background import BackgroundScheduler
 import datetime
 
 
@@ -39,7 +40,8 @@ def make_lola(Array_lola):
 #デバッグ用
 # print(array_lola)
 
-def index(request):
+def regular_execution(request):
+  #views.py/indexと同じ処理
   data = {
       'array_lola':make_lola(array_lola),
       'datetime':datetime.datetime.now(),
@@ -47,3 +49,17 @@ def index(request):
   }
 
   return render(request,'twitterapi_test/index.html',data)
+
+def task():
+  scheduler = BackgroundScheduler()
+  scheduler.add_job(regular_execution, 'interval', args=['request'], minutes=1)
+  scheduler.start()
+
+# def index(request):
+#   data = {
+#       'array_lola':make_lola(array_lola),
+#       'datetime':datetime.datetime.now(),
+#       'googlemap_key':CLIENT['GOOGLEMAP_KEY']
+#   }
+
+#   return render(request,'twitterapi_test/index.html',data)
