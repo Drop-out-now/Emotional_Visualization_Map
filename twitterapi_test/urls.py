@@ -4,6 +4,5 @@ from . import views
 
 app_name = 'twitterapi_test'
 urlpatterns = [
-    path('', views.task, name='index') # URLに何も付いてなければviews.pyのindex関数を実行する
-    #path('', task.task, name='index')
+    path('', views.regular_execution, name='index') # URLに指定がない場合の処理
 ]
