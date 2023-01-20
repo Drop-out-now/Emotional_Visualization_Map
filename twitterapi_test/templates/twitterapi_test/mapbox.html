@@ -16,7 +16,7 @@ body { margin: 0; padding: 0; }
 <div id="map"></div>
 
 <script>
-	mapboxgl.accessToken = 'pk.eyJ1Ijoibml0b2NhIiwiYSI6ImNsYnE4dmdnMDExMGYzeHFoOW91YXEzajIifQ.pdmnOeTgFH-Pn7okZUeDpA';
+	mapboxgl.accessToken = '{{mapbox_key}}';
     const map = new mapboxgl.Map({
         container: 'map',
         zoom: 0.3,
@@ -46,7 +46,7 @@ body { margin: 0; padding: 0; }
             'type': 'geojson',
             'data': Exam_geojson2,
             // 'data': "{%static 'twitterapi_test/map.geojson'%}",
-            'cluster': true,
+            'cluster': false,
             'clusterRadius': 80,
             'clusterProperties': {
                 // keep separate counts for each magnitude category in a cluster

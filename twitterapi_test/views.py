@@ -103,7 +103,8 @@ def mapbox(request):
       'array_lola':array_lola,
       'googlemap_key':CLIENT['GOOGLEMAP_KEY'],
       'exam_json':exam_geojson_data,
-      'exam_json2':geojson_ori_data
+      'exam_json2':geojson_ori_data,
+      'mapbox_key':CLIENT['MAPBOX_KEY'],
   }
 
   return render(request,'twitterapi_test/mapbox.html', data)
