@@ -40,6 +40,12 @@ for o in range(num_spot):
         each_data[1].append(long) #経度
         each_data[2].append(emotion)
         print(lat,long,emotion)
+      else:
+        lat = array_lola[o][0]
+        long = array_lola[o][1]
+        each_data[0].append(lat) # 緯度
+        each_data[1].append(long) #経度
+        each_data[2].append(emotion)
 
       
       emotion = emotion/len(ana_result)
