@@ -29,7 +29,7 @@ body { margin: 0; padding: 0; }
     map.addControl(new mapboxgl.NavigationControl());
 
     // filters for classifying earthquakes into five categories based on magnitude
-    const mag1 = ['<', ['get', 'mag'], -1];
+    const mag1 = ['<', ['get', 'mag'], -0.9];
     const mag2 = ['all', ['>=', ['get', 'mag'], -0.9], ['<', ['get', 'mag'], -0.3]];
     const mag3 = ['all', ['>=', ['get', 'mag'], -0.3], ['<', ['get', 'mag'], 0.3]];
     const mag4 = ['all', ['>=', ['get', 'mag'], 0.3], ['<', ['get', 'mag'], 0.9]];
@@ -37,7 +37,6 @@ body { margin: 0; padding: 0; }
 
     // colors to use for the categories
     const colors = ['#00008B', '#0000FF', '#FFE4C4', '#FFA500', '#FF0000'];
-    var Exam_geojson = {{exam_json | safe}};
     var Exam_geojson2 = {{exam_json2 | safe}};
 
     map.on('load', () => {

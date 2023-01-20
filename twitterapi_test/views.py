@@ -71,15 +71,6 @@ def index(request):
   return render(request,'twitterapi_test/index.html',data)
 
 def mapbox(request):
-  exam_geojson_data = {
-  "type": "FeatureCollection",
-  "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
-  "features": [
-  { "type": "Feature", "properties": { "id": "ak16994521", "mag": 2.3, "time": 1507425650893, "felt": "null", "tsunami": 0 }, "geometry": { "type": "Point", "coordinates": [ -151.5129, 63.1016, 0.0 ] } },
-  { "type": "Feature", "properties": { "id": "ak16994519", "mag": 1.7, "time": 1507425289659, "felt": "null", "tsunami": 0 }, "geometry": { "type": "Point", "coordinates": [ -150.4048, 63.1224, 105.5 ] } }
-  ]
-  }
-
   geojson_ori_data = {"type" : "FeatureCollection",
         "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
         "features": []
@@ -108,9 +99,43 @@ def mapbox(request):
   data = {
       'array_lola':array_lola,
       'googlemap_key':CLIENT['GOOGLEMAP_KEY'],
-      'exam_json':exam_geojson_data,
       'exam_json2':geojson_ori_data,
       'mapbox_key':CLIENT['MAPBOX_KEY'],
   }
 
   return render(request,'twitterapi_test/mapbox.html', data)
+
+def heatmap(request):
+  geojson_ori_data = {"type" : "FeatureCollection",
+        "crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+        "features": []
+  }
+
+  count = 0
+  for o in range(len(each_data[0])):
+    geojson_data = {"type" : "Feature",
+      "properties" : {
+        "id" : "ak16994521",
+        "mag" : each_data[2][count],
+        "time" : 1507425650893,
+        "felt" : "null",
+        "tsunami" : 0
+      },
+      "geometry" : {
+        "type" : "Point",
+        "coordinates" : [each_data[1][count], each_data[0][count], 0.0]
+      }
+    }
+
+    geojson_ori_data['features'].append(geojson_data)
+    count += 1
+
+
+  data = {
+      'array_lola':array_lola,
+      'googlemap_key':CLIENT['GOOGLEMAP_KEY'],
+      'exam_json2':geojson_ori_data,
+      'mapbox_key':CLIENT['MAPBOX_KEY'],
+  }
+  
+  return render(request,'twitterapi_test/heatmap.html', data)
