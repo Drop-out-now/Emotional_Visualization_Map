@@ -17,21 +17,27 @@ num_spot = 12
 num_gettweet = 5
 
 # 東京、札幌、仙台、大阪、名古屋、広島、福岡、四国、金沢、新潟、盛岡、鹿児島
-array_lola = [[35.680959106959,139.76730676352,0,[]],[43.06417,141.34694,0,[]],[38.26889,140.86972,0,[]],[34.702485,135.495951,0,[]],[35.18028,136.90667,0,[]],[34.39639,132.45972,0,[]],[33.59056,130.40167,0,[]],[33.24917,133.28639,0,[]],[36.59444,136.62556,0,[]],[37.90222,139.02361,0,[]],[39.70361,141.1525,0,[]],[31.56028,130.55806,0,[]]]
 each_data = [[],[],[]] 
+array_lola = [[35.680959106959,139.76730676352,0,0,[]],[43.06417,141.34694,0,0,[]],[38.26889,140.86972,0,0,[]],[34.702485,135.495951,0,0,[]],[35.18028,136.90667,0,0,[]],[34.39639,132.45972,0,0,[]],[33.59056,130.40167,0,0,[]],[33.24917,133.28639,0,0,[]],[36.59444,136.62556,0,0,[]],[37.90222,139.02361,0,0,[]],[39.70361,141.1525,0,0,[]],[31.56028,130.55806,0,0,[]]]
 
 tmp = 0
 for o in range(num_spot):
-    
+
     tweets = tweepy.Cursor(api.search_tweets, q='', geocode='{},{},50km'.format(array_lola[o][0],array_lola[o][1]), tweet_mode='extended').items(num_gettweet)
 
+    emotion_plus = 0
+    emotion_minus = 0
     emotion = 0
     for tweet in tweets:
-      array_lola[o][3].append(tweet.full_text)
+      array_lola[o][4].append(tweet.full_text)
 
       ana_result =  analyzer.analyze(tweet.full_text)
       for emotion_value in ana_result:
-        emotion += emotion_value
+        if emotion_value > 0:
+          emotion_plus += emotion_value
+        else:
+          emotion_minus += emotion_value
+
       if tweet.place is not None:
         box = tweet.place.bounding_box.coordinates
         lat = (box[0][0][1] + box[0][1][1] + box[0][2][1] + box[0][3][1]) / 4
@@ -47,16 +53,19 @@ for o in range(num_spot):
         each_data[1].append(long) #経度
         each_data[2].append(emotion)
 
-      
-      emotion = emotion/len(ana_result)
-    array_lola[o][2] = emotion/num_gettweet
 
+    emotion_plus = emotion_plus/len(ana_result)
+    emotion_minus = emotion_minus/len(ana_result)
+    array_lola[o][2] =emotion_plus/num_gettweet
+    array_lola[o][3] = emotion_minus/num_gettweet
 
 
 
 # exam_geojson = json.dumps(exam_geojson_data)
 
 
+#デバッグ用
+print(array_lola)
 
 def index(request):
   emotion = 0
