@@ -15,6 +15,26 @@
         <li class="nav-item">
           <a class="nav-link" href="/heatmap/">Heat Map</a>
         </li>
+        <li class="nav-item">
+          <p class="nav-link" id="time"><span id="real-time"></span></p>
+          <script type="text/javascript">
+            function time(){
+              var realTime = new Date();
+              var hour = realTime.getHours();
+              var minutes  = realTime.getMinutes();
+              if (minutes < 10) {
+                minutes = "0" + minutes;
+              }
+              var seconds  = realTime.getSeconds();
+              if (seconds < 10) {
+                seconds = "0" + seconds;
+              }
+              var text = hour + ":" + minutes + ":" + seconds;
+              document.getElementById("real-time").innerHTML = text;
+            }
+            setInterval('time()',1000);
+          </script>
+        </li>
       </ul>
     </div>
   </div>
