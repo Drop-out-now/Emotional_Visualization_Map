@@ -32,7 +32,6 @@ for o in range(num_spot):
       emotion = emotion/len(ana_result)
     array_lola[o][2] = emotion/num_gettweet
 
-
 #デバッグ用
 # print(array_lola)
 
