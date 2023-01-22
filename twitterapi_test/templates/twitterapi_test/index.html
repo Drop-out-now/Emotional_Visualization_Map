@@ -16,42 +16,38 @@ body { height: 100% }
 </head>
 
 <body>
-<div id="map"></div>
+<div id="map">
+  <p>{{ array_lola0 }}</p>
+</div>
+
 
 <script>
-  $(function() {
-    var POLLING_INTERVAL_TIME_IN_MILLIS = 1000; // 実行インターバル（ミリ秒）
+  // $(function() {
+  //   var POLLING_INTERVAL_TIME_IN_MILLIS = 30000; // 実行インターバル（ミリ秒）
     
-    (function polling() {
-        AutoReload();
-        window.setTimeout(polling, POLLING_INTERVAL_TIME_IN_MILLIS);
-    }());
+  //   (function polling() {
+  //       AutoReload();
+  //       window.setTimeout(polling, POLLING_INTERVAL_TIME_IN_MILLIS);
+  //   }());
 
-    function AutoReload() {
-      /////////////////////////
-      // このようにviews.pyで取得したデータをdateに代入したいが、views.pyの実行は起動時のみなので変化しない
-      /////////////////////////
-      
-      {% autoescape off %}
-      var array_lola = {{ array_lola }};
-      {% endautoescape %}
+  //   function AutoReload() {
+  //     {% autoescape off %}
+  //     var array_lola0 = {{ array_lola0 }};
+  //     {% endautoescape %}
 
-      var date = new Date();
-  
-      $.ajax({
-          type : "GET",
-          // data: {
-          //     "now_date": date,
-          // },
-          contentType: "application/json",
-          // timeout: 5000,
-      }).done(function(data) {
-          $('#map').text(array_lola);
-      }).fail(function(jqXHR, textStatus) {
-          $('#map').text('fail');
-      });
-    }
-  });
+  //     $.ajax({
+  //         type : "GET",
+  //         data: {
+  //             "array_lola0": array_lola0,
+  //         },
+  //         contentType: "application/json",
+  //     }).done(function(data) {
+  //         $('#map').text(array_lola0);
+  //     }).fail(function(jqXHR, textStatus) {
+  //         $('#map').text('fail');
+  //     });
+  //   }
+  // });
 </script>
 </body>
 </html>

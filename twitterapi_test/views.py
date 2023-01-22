@@ -6,7 +6,7 @@ from Config.config import CLIENT
 import tweepy
 import oseti
 from apscheduler.schedulers.background import BackgroundScheduler
-import datetime
+import os
 
 
 auth = tweepy.OAuthHandler(CLIENT['API_KEY'], CLIENT['API_KEY_SECRET'])
@@ -16,7 +16,6 @@ api = tweepy.API(auth)
 analyzer = oseti.Analyzer()
 
 num_spot = 1
-
 num_gettweet = 1
 
 # 東京、札幌、仙台、大阪、名古屋、広島、福岡、四国、金沢、新潟、盛岡、鹿児島
@@ -38,17 +37,9 @@ def make_lola(Array_lola):
   
   return Array_lola
 
-req = HttpRequest()
-
 def index(request):
-  request = req
   data = {
-      'array_lola':make_lola(array_lola),
-      'datetime':datetime.datetime.now(),
+      'array_lola0':(make_lola(array_lola))[0],
       'googlemap_key':CLIENT['GOOGLEMAP_KEY']
   }
   return render(request,'twitterapi_test/index.html',data)
-
-scheduler = BackgroundScheduler()
-scheduler.add_job(index, 'interval',args = [req], seconds=30)
-scheduler.start()
