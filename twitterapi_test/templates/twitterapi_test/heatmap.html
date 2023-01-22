@@ -12,58 +12,17 @@
 html { height: 100% }
 body { height: 100% }
 #map { height: 100%; width: 100%}
-.tablesorter th{
-    position: relative;
-    cursor: pointer;
-    text-align: left;
-}
-.tablesorter th::before, .tablesorter th::after{
-    content: '';
-    position: absolute;
-    z-index: 2;
-    right: 7px;
-    width: 0;
-    height: 0;
-    border: 4px dashed;
-    border-color: #333 transparent;
-    pointer-events: none;
-}
-.tablesorter th::before{
-    border-bottom-style: solid;
-    border-top: none;
-    top: 30%;
-}
-.tablesorter th::after{
-    border-top-style: solid;
-    border-bottom: none;
-    bottom: 30%;
-}
-.tablesorter th.tablesorter-headerAsc:after{
-    border: none;
-}
-.tablesorter th.tablesorter-headerAsc:before{
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-}
-.tablesorter th.tablesorter-headerDesc:before{
-    border: none;
-}
-.tablesorter th.tablesorter-headerDesc:after{
-    top: 50%;
-    transform: translateY(-50%);
-    -webkit-transform: translateY(-50%);
-}
-.tablesorter th.sorter-false:before, .tablesorter th.sorter-false:after{
-    border: none;
-}
 </style>
 </head>
-<body>
+<body style="padding-top: 50px;">
     {% include 'nav.html' %}
-<div id="map"></div>
+<div id="map" style="width: 100%; height: 97%;"></div>
 
 <script>
+    window.onload = function(){
+  //1000ミリ秒（1秒）毎に関数「showNowDate()」を呼び出す
+  setInterval("progress()", 1000);
+}
 	mapboxgl.accessToken = '{{mapbox_key}}';
     const map = new mapboxgl.Map({
         container: 'map',
@@ -207,7 +166,18 @@ body { height: 100% }
             'waterway-label'
         );
     });
+    function progress() {
+  var realTime = new Date();
+  var seconds  = realTime.getSeconds();
+  document.getElementById("prg").value = seconds;
+}
 </script>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
 
 </body>
 </html>

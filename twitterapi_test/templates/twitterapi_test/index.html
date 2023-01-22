@@ -1,3 +1,4 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="ja">
 
@@ -18,14 +19,16 @@ body { height: 100% }
 
 </head>
 
-<body>
+<body style="padding-top: 50px;">
   {% include 'nav.html' %}
-<div id="map"></div>
-  {% load static %}
-
+<div id="map" style="width: 100%; height: 97%;"></div>
 </body>
 
 <script>
+window.onload = function(){
+  //1000ミリ秒（1秒）毎に関数「showNowDate()」を呼び出す
+  setInterval("progress()", 1000);
+}
 
 var Array_lola = {{array_lola | safe}};
 var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
@@ -305,6 +308,13 @@ for (var i=0; i<12; i++){
 
   circle(LatLng,emotionf);
 
+}
+
+
+function progress() {
+  var realTime = new Date();
+  var seconds  = realTime.getSeconds();
+  document.getElementById("prg").value = seconds;
 }
 
 </script>
