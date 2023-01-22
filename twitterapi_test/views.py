@@ -14,7 +14,7 @@ analyzer = oseti.Analyzer()
 
 num_spot = 12
 
-num_gettweet = 10
+num_gettweet = 5
 
 # 東京、札幌、仙台、大阪、名古屋、広島、福岡、四国、金沢、新潟、盛岡、鹿児島
 each_data = [[],[],[]]
