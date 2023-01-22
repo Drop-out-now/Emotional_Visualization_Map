@@ -32,9 +32,9 @@ body { height: 100% }
       // このようにviews.pyで取得したデータをdateに代入したいが、views.pyの実行は起動時のみなので変化しない
       /////////////////////////
       
-      // {% autoescape off %}
-      // var date = {{ datetime }};
-      // {% endautoescape %}
+      {% autoescape off %}
+      var array_lola = {{ array_lola }};
+      {% endautoescape %}
 
       var date = new Date();
   
@@ -46,7 +46,7 @@ body { height: 100% }
           contentType: "application/json",
           // timeout: 5000,
       }).done(function(data) {
-          $('#map').text(date.getSeconds());
+          $('#map').text(array_lola);
       }).fail(function(jqXHR, textStatus) {
           $('#map').text('fail');
       });
