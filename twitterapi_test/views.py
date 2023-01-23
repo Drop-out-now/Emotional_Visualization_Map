@@ -108,7 +108,7 @@ def make_geojson_data(each_data):
 
 def index(request):
   data = {
-      'array_lola0':(make_lola_index(array_lola)),
+      'array_lola':(make_lola_index(array_lola)),
       'googlemap_key':CLIENT['GOOGLEMAP_KEY']
   }
 
