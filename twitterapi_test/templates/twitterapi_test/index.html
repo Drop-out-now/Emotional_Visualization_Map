@@ -5,8 +5,8 @@
 <head>
 <meta charset="UTF-8">
 <title>Sample_GoogleMap</title>
-<script src="http://maps.google.com/maps/api/js?key={{ googlemap_key }}&language=ja"></script>
-
+<!-- <script src="http://maps.google.com/maps/api/js?key={{ googlemap_key }}&language=ja"></script> -->
+<script src="http://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <!-- Bootstrap CSS 読み込み -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -317,6 +317,19 @@ function progress() {
   document.getElementById("prg").value = seconds;
 }
 
+  //     $.ajax({
+  //         type : "GET",
+  //         data: {
+  //             "array_lola0": array_lola0,
+  //         },
+  //         contentType: "application/json",
+  //     }).done(function(data) {
+  //         $('#map').text(array_lola0);
+  //     }).fail(function(jqXHR, textStatus) {
+  //         $('#map').text('fail');
+  //     });
+  //   }
+  // });
 </script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
