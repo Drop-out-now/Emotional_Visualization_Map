@@ -16,38 +16,234 @@ body { height: 100% }
 </head>
 
 <body>
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<!-- <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script> -->
 <div id="map">
-  <p>{{ array_lola0 }}</p>
+  <p id="test"></p>
 </div>
 
+{% load static %}
+<script src="{% static 'twitterapi_test/js/index.js' %}">
 
-<script>
-  // $(function() {
-  //   var POLLING_INTERVAL_TIME_IN_MILLIS = 30000; // 実行インターバル（ミリ秒）
-    
-  //   (function polling() {
-  //       AutoReload();
-  //       window.setTimeout(polling, POLLING_INTERVAL_TIME_IN_MILLIS);
-  //   }());
+// const fs = require('fs');
+// let filepath = 'twitterapi_test/array_lola.txt';
 
-  //   function AutoReload() {
-  //     {% autoescape off %}
-  //     var array_lola0 = {{ array_lola0 }};
-  //     {% endautoescape %}
+// fs.watch(filepath, (change, filename = filepath) => {
+//   if (filename) {
+//     fs.readFile(filepath, 'utf8', (err, data) => {
+//     if (err) {
+//       throw err;
+//     }
+//     console.log(data);
+//     });
+//   }
+// });
 
-  //     $.ajax({
-  //         type : "GET",
-  //         data: {
-  //             "array_lola0": array_lola0,
-  //         },
-  //         contentType: "application/json",
-  //     }).done(function(data) {
-  //         $('#map').text(array_lola0);
-  //     }).fail(function(jqXHR, textStatus) {
-  //         $('#map').text('fail');
-  //     });
-  //   }
-  // });
+// var Array_lola = {{array_lola | safe}};
+// var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
+// // var Exam_geojson = {{exam_json | safe}};
+
+// var Options = {
+//  zoom: 5,      //地図の縮尺値
+//  center: MyLatLng,    //地図の中心座標
+//  mapTypeId: 'satellite'   //地図の種類
+// };
+// var map = new google.maps.Map(document.getElementById('map'), Options);
+//        //mapをクリックしたときのイベントを設定
+// function circle(LatLng,emotion){
+//   if(emotion>0){
+//     switch (emotion){
+//        case 1:
+//        var cityCircle = new google.maps.Circle({
+//            strokeOpacity: 0.8,
+//            strokeWeight: 2,
+//            fillOpacity: 0.60,
+//            map,
+//            center: LatLng,
+//            radius: 70000,
+//            fillColor: "#FF5347",
+//            strokeColor: "#FF0000",
+//        });
+//         break;
+//        case 2:
+//        var cityCircle = new google.maps.Circle({
+//            strokeOpacity: 0.8,
+//            strokeWeight: 2,
+//            fillOpacity: 0.60,
+//            map,
+//            center: LatLng,
+//            radius: 70000,
+//            fillColor: "#FF4500",
+//            strokeColor: "#FF0000",
+//        });
+//         break;
+//        case 3:
+//        var cityCircle = new google.maps.Circle({
+//            strokeOpacity: 0.8,
+//            strokeWeight: 2,
+//            fillOpacity: 0.60,
+//            map,
+//            center: LatLng,
+//            radius: 70000,
+//            fillColor: "#FF0000",
+//            strokeColor: "#FF0000",
+//        });
+//         break;
+//        default:
+//     }
+
+//     new google.maps.Marker({
+//         position: LatLng,
+//         map,
+//         icon: {
+//           url: '',
+//           size: new google.maps.Size(1, 1)
+//         },
+//         label: {
+//           text: "😊",
+//           color: '#ffff00',
+//           fontFamily: 'sans-serif',
+//           fontWeight: 'bold',
+//           fontSize: '20px'
+//         }
+//         });
+//   }else {
+//     switch (emotion){
+//   case -1:
+//   var cityCircle = new google.maps.Circle({
+//       strokeOpacity: 0.8,
+//       strokeWeight: 2,
+//       fillOpacity: 0.60,
+//       map,
+//       center: LatLng,
+//       radius: 70000,
+//       fillColor: "#00bfff",
+//       strokeColor: "##007BC3",
+//   });
+//     break;
+//   case -2:
+//   var cityCircle = new google.maps.Circle({
+//       strokeOpacity: 0.8,
+//       strokeWeight: 2,
+//       fillOpacity: 0.60,
+//       map,
+//       center: LatLng,
+//       radius: 70000,
+//       fillColor: "#0000ff",
+//       strokeColor: "#007BC3",
+//   });
+//     break;
+//   case -3:
+//   var cityCircle = new google.maps.Circle({
+//       strokeOpacity: 0.8,
+//       strokeWeight: 2,
+//       fillOpacity: 0.60,
+//       map,
+//       center: LatLng,
+//       radius: 70000,
+//       fillColor: "#000080",
+//       strokeColor: "#007BC3",
+//   });
+//     break;
+//   default:
+// }
+
+//     var cityCircle = new google.maps.Circle({
+//         strokeOpacity:0.8,
+//         strokeWeight: 2,
+//         fillOpacity: 0.35,
+//         map,
+//         center: LatLng,
+//         radius: 70000,
+//         fillColor: "#007BC3",
+//         strokeColor: "#007BC3",
+//     });
+//     new google.maps.Marker({
+//         position: LatLng,
+//         map,
+//         icon: {
+//           url: '',
+//           size: new google.maps.Size(1, 1)
+//         },
+//         label: {
+//           text: '😢',
+//           color: '#ffff00',
+//           fontFamily: 'emojione mozilla',
+//           fontWeight: 'bold',
+//           fontSize: '20px'
+//         }
+//         });
+//   }
+
+//   cityCircle.addListener('mouseover', mylistener);
+
+
+//   function mylistener(event){
+//       //marker作成
+
+//       var coposition = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+//       var comment = LatLngkikaku(event.latLng.lat(), event.latLng.lng());
+
+//       var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
+//                content: '<div class="sample">'+comment[0]+'</div></br><div class="sample">'+comment[1]+'</div></br><div class="sample">'+comment[2]+'</div></br><div class="sample">'+comment[3]+'</div></br><div class="sample">'+comment[4]+'</div></br>', // 吹き出しに表示する内容
+//                position : coposition,
+//       })
+//       infoWindow.open(map);
+//       cityCircle.addListener('mouseout', function() { // マーカーをクリックしたとき
+//           infoWindow.close(map); // 吹き出しの表示
+//       });
+//   }
+
+// }
+
+
+// function LatLngkikaku(makerlo,makerla){
+//   var length = 10000000;
+//   var o,a,emo;
+//   var Array_tweets;
+//   for(var i=0; i<12; i++){
+//     var lo = Array_lola[i][0];
+//     var la = Array_lola[i][1];
+//     var r = (lo-makerlo)*(lo-makerlo)+(la-makerla)*(la-makerla);
+//     if(length>r){
+//       length = r;
+//       Array_tweets = Array_lola[i][4];
+//     }
+//   }
+//   return Array_tweets;
+// }
+
+// console.log(LatLngkikaku(35.6811673, 139.7670516));
+
+// console.log(Array_lola);
+
+// for (var i=0; i<12; i++){
+//   var lo = Array_lola[i][0];
+//   var la = Array_lola[i][1];
+//   var emotion_plus = Array_lola[i][2];
+//   var emotion_minus = Array_lola[i][3];
+//   var LatLng = new google.maps.LatLng(lo,la);
+//   console.log(LatLng);
+//   var emotion =emotion_plus*emotion_minus;
+
+//   var plusf = Math.ceil(3*emotion_plus);
+//   var minusf = Math.floor(3*emotion_minus);
+//   var emotionf = minusf+plusf;
+//   console.log(emotion_plus);
+//   console.log(emotion_minus);
+
+//   console.log(plusf);
+//   console.log(minusf);
+//   console.log(emotionf);
+
+//   circle(LatLng,emotionf);
+
+// }
 </script>
 </body>
 </html>

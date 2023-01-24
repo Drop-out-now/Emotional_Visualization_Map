@@ -1,12 +1,10 @@
 from django.shortcuts import render
-from django.http import HttpRequest
 import sys
 sys.path.append('../') #下2つのimportに必要
 from Config.config import CLIENT
 import tweepy
 import oseti
 from apscheduler.schedulers.background import BackgroundScheduler
-import os
 
 
 auth = tweepy.OAuthHandler(CLIENT['API_KEY'], CLIENT['API_KEY_SECRET'])
@@ -39,7 +37,7 @@ def make_lola(Array_lola):
 
 def index(request):
   data = {
-      'array_lola0':(make_lola(array_lola))[0],
+      'array_lola':make_lola(array_lola),
       'googlemap_key':CLIENT['GOOGLEMAP_KEY']
   }
   return render(request,'twitterapi_test/index.html',data)
