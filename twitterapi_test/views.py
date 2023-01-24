@@ -25,7 +25,7 @@ tmp = 0
 for o in range(num_spot):
     tweets = tweepy.Cursor(api.search_tweets, q='', geocode='{},{},50km'.format(array_lola[o][0],array_lola[o][1]), tweet_mode='extended').items(num_gettweet)
 
-    emotion_plus = 0
+    emotion_plus = 0 
     emotion_minus = 0
     emotion = 0
     for tweet in tweets:
