@@ -23,7 +23,6 @@ array_lola2 = [[35.680959106959,139.76730676352,0,[]],[43.06417,141.34694,0,[]],
 
 tmp = 0
 for o in range(num_spot):
-
     tweets = tweepy.Cursor(api.search_tweets, q='', geocode='{},{},50km'.format(array_lola[o][0],array_lola[o][1]), tweet_mode='extended').items(num_gettweet)
 
     emotion_plus = 0
