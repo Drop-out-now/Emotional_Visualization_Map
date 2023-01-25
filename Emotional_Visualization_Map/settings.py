@@ -39,7 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'twitterapi_test',
-    'corsheaders',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -132,7 +132,3 @@ STATICFILES_DIRS = (
     [
         os.path.join(BASE_DIR, "static"),
     ])
-
-CORS_ORIGIN_WHITELIST = [
-    'http://127.0.0.1:3000',
-]

@@ -1,6 +1,6 @@
 from django.shortcuts import render
 import sys
-sys.path.append('../') #下2つのimportに必要
+sys.path.append('../')
 from Config.config import CLIENT
 import tweepy
 import oseti
@@ -32,12 +32,11 @@ def make_lola(Array_lola):
           emotion += emotion_value
         emotion = emotion/len(ana_result)
       Array_lola[o][2] = emotion/num_gettweet
-  
+
   return Array_lola
 
 def index(request):
   data = {
-      'array_lola':make_lola(array_lola),
       'googlemap_key':CLIENT['GOOGLEMAP_KEY']
   }
   return render(request,'twitterapi_test/index.html',data)
