@@ -47,12 +47,9 @@
   function regular_execution(){  
     let fetchdata = fetchData();
     let get_array_val = fetchdata();
-    // console.log(Array_lola);
-    console.log(get_array_val);
-    console.log(typeof(get_array_val));
-    // arraylola = JSON.parse(get_array_val);
-    // console.log(arraylola[0][0]);
-
+    arraylola = eval(get_array_val);
+    console.log(arraylola);
+    
     var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
     var Options = {
     zoom: 5,      //地図の縮尺値
@@ -60,6 +57,21 @@
     mapTypeId: 'satellite'   //地図の種類
     };
     var map = new google.maps.Map(document.getElementById('map'), Options);
+
+    for (var i=0; i<12; i++){
+      var lo = arraylola[i][0];
+      var la = arraylola[i][1];
+      var emotion_plus = arraylola[i][2];
+      // var emotion_minus = arraylola[i][3];
+      var LatLng = new google.maps.LatLng(lo,la);
+      // var emotion =emotion_plus+emotion_minus;
+      var plusf = Math.ceil(6*emotion_plus);
+      console.log(plusf);
+      console.log(LatLng);
+      // var minusf = Math.floor(6*emotion_minus);
+      // var emotionf = minusf+plusf;
+      circle(LatLng,plusf);
+    }
 
   }
 
@@ -285,35 +297,22 @@
     }
 
     function LatLngkikaku(makerlo,makerla){
-      // console.log(Array_lola);
       var length = 10000000;
       var o,a,emo;
       var Array_tweets;
       for(var i=0; i<12; i++){
-        var lo = get_array_val[i][0];
-        var la = get_array_val[i][1];
+        var lo = arraylola[i][0];
+        var la = arraylola[i][1];
         var r = (lo-makerlo)*(lo-makerlo)+(la-makerla)*(la-makerla);
         if(length>r){
           length = r;
-          Array_tweets = get_array_val[i][4];
+          Array_tweets = arraylola[i][3];
         }
       }
       return Array_tweets;
     }
 
   setInterval(regular_execution, 10000);
-
-  
-  // function doReload() {
-  //   window.location.reload();
-  // }
-
-  // window.addEventListener('load', function () {
-  //   setTimeout(doReload, 10000);
-  // });
-
-
-
 </script>
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
