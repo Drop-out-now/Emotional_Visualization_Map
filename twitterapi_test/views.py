@@ -58,8 +58,8 @@ for o in range(num_spot):
       emotion = emotion/len(ana_result)
 
 
-    emotion_plus = emotion_plus/len(ana_result)
-    emotion_minus = emotion_minus/len(ana_result)
+    emotion_plus = emotion_plus/num_gettweet
+    emotion_minus = emotion_minus/num_gettweet
     array_lola[o][2] =emotion_plus/num_gettweet
     array_lola[o][3] = emotion_minus/num_gettweet
     array_lola2[o][2] = emotion/num_gettweet
