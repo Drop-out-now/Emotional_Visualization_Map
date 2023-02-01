@@ -42,84 +42,86 @@ var Options = {
 var map = new google.maps.Map(document.getElementById('map'), Options);
        //mapをクリックしたときのイベントを設定
 function circle(LatLng,emotion){
-  if(emotion>0){
-    switch (emotion){
-       case 1:
-       var cityCircle = new google.maps.Circle({
-           strokeOpacity: 0.8,
-           strokeWeight: 2,
-           fillOpacity: 0.60,
-           map,
-           center: LatLng,
-           radius: 70000,
-           fillColor: "#FF7a7a",
-           strokeColor: "#FF0000",
-       });
-        break;
-       case 2:
-       var cityCircle = new google.maps.Circle({
-           strokeOpacity: 0.8,
-           strokeWeight: 2,
-           fillOpacity: 0.60,
-           map,
-           center: LatLng,
-           radius: 70000,
-           fillColor: "#FF6666",
-           strokeColor: "#FF0000",
-       });
-        break;
-       case 3:
-       var cityCircle = new google.maps.Circle({
-           strokeOpacity: 0.8,
-           strokeWeight: 2,
-           fillOpacity: 0.60,
-           map,
-           center: LatLng,
-           radius: 70000,
-           fillColor: "#FF5151",
-           strokeColor: "#FF0000",
-       });
-        break;
-       case 4:
-       var cityCircle = new google.maps.Circle({
-           strokeOpacity: 0.8,
-           strokeWeight: 2,
-           fillOpacity: 0.60,
-           map,
-           center: LatLng,
-           radius: 70000,
-           fillColor: "#FF2d2d",
-           strokeColor: "#FF0000",
-       });
-        break;
-      case 5:
-      var cityCircle = new google.maps.Circle({
-          strokeOpacity: 0.8,
-          strokeWeight: 2,
-          fillOpacity: 0.60,
-          map,
-          center: LatLng,
-          radius: 70000,
-          fillColor: "#FF0f0f",
-          strokeColor: "#FF0000",
-      });
-       break;
-     case 6:
-     var cityCircle = new google.maps.Circle({
-         strokeOpacity: 0.8,
-         strokeWeight: 2,
-         fillOpacity: 0.60,
-         map,
-         center: LatLng,
-         radius: 70000,
-         fillColor: "#FF0000",
-         strokeColor: "#FF0000",
-     });
-      break;
-       default:
-    }
-
-    new google.maps.Marker({
+  if(emotion>0 && emotion<0.02){
+    text = "🤗";
+    color = "#FF7a7a";
+  }
+  else if(emotion>=0.02 && emotion<0.04){
+    text = "🤗";
+    color = "#FF6666";
+  }
+  else if(emotion>=0.04 && emotion<0.06){
+    text = "😊";
+    color = "#FF4d4d";
+  }
+  else if(emotion>=0.06 && emotion<0.08){
+    text = "😊";
+    color = "#FF3333";
+  }
+  else if(emotion>=0.08 && emotion<0.1){
+    text = "😊";
+    color = "#FF1a1a";
+  }
+  else if(emotion>=0.1 && emotion<0.12){
+    text = "😊";
+    color = "#FF0000";
+  }
+  else if(emotion>=0.12 && emotion<0.14){
+    text = "😊";
+    color = "#e60000";
+  }
+  else if(emotion>=0.14){
+    text = "😊";
+    color = "#cc0000";
+  }
+  // だんだん青が濃くなっていく
+  else if(emotion<=0 && emotion>-0.02){
+    text = "😢";
+    color = "#7a7aff";
+  }
+  else if(emotion<=-0.02 && emotion>-0.04){
+    text = "😢";
+    color = "#6666ff";
+  }
+  else if(emotion<=-0.04 && emotion>-0.06){
+    text = "😢";
+    color = "#4d4dff";
+  }
+  else if(emotion<=-0.06 && emotion>-0.08){
+    text = "😢";
+    color = "#3333ff";
+  }
+  else if(emotion<=-0.08 && emotion>-0.1){
+    text = "😢";
+    color = "#1a1aff";
+  }
+  else if(emotion<=-0.1 && emotion>-0.12){
+    text = "😢";
+    color = "#0000ff";
+  }
+  else if(emotion<=-0.12 && emotion>-0.14){
+    text = "😢";
+    color = "#0000e6";
+  }
+  else if(emotion<=-0.14){
+    text = "😢";
+    color = "#0000cc";
+  }
+  else{
+    text = "😐";
+    color = "#ffff00";
+  }
+  var cityCircle = new google.maps.Circle({
+    strokeColor: color,
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: color,
+    fillOpacity: 0.60,
+    map: map,
+    center: LatLng,
+    radius: 100000
+  });
+  new google.maps.Marker({
         position: LatLng,
         map,
         icon: {
@@ -127,119 +129,14 @@ function circle(LatLng,emotion){
           size: new google.maps.Size(1, 1)
         },
         label: {
-          text: "😊",
+          text: text,
           color: '#ffff00',
           fontFamily: 'sans-serif',
           fontWeight: 'bold',
           fontSize: '20px'
         }
-        });
-  }else {
-    switch (emotion){
-  case -1:
-  var cityCircle = new google.maps.Circle({
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillOpacity: 0.60,
-      map,
-      center: LatLng,
-      radius: 70000,
-      fillColor: "#7affff",
-      strokeColor: "#00ffff",
   });
-    break;
-  case -2:
-  var cityCircle = new google.maps.Circle({
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillOpacity: 0.60,
-      map,
-      center: LatLng,
-      radius: 70000,
-      fillColor: "#00ffff",
-      strokeColor: "#00ffff",
-  });
-    break;
-  case -3:
-  var cityCircle = new google.maps.Circle({
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillOpacity: 0.60,
-      map,
-      center: LatLng,
-      radius: 70000,
-      fillColor: "#389bff",
-      strokeColor: "#00ffff",
-  });
-    break;
-    case 0:
-    var cityCircle = new google.maps.Circle({
-        strokeOpacity:0.8,
-        strokeWeight: 2,
-        fillOpacity: 0.15,
-        map,
-        center: LatLng,
-        radius: 70000,
-        fillColor: "#ffff00",
-        strokeColor: "#ffff00",
-    });
-    break;
-    case -4:
-    var cityCircle = new google.maps.Circle({
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillOpacity: 0.60,
-        map,
-        center: LatLng,
-        radius: 70000,
-        fillColor: "#198cff",
-        strokeColor: "#00ffff",
-    });
-     break;
-   case -5:
-   var cityCircle = new google.maps.Circle({
-       strokeOpacity: 0.8,
-       strokeWeight: 2,
-       fillOpacity: 0.60,
-       map,
-       center: LatLng,
-       radius: 70000,
-       fillColor: "#007fff",
-       strokeColor: "#00ffff",
-   });
-    break;
-  case -6:
-  var cityCircle = new google.maps.Circle({
-      strokeOpacity: 0.8,
-      strokeWeight: 2,
-      fillOpacity: 0.60,
-      map,
-      center: LatLng,
-      radius: 70000,
-      fillColor: "#0000ff",
-      strokeColor: "#00ffff",
-  });
-   break;
-  default:
-}
-    if(emotion!=0){
-    new google.maps.Marker({
-        position: LatLng,
-        map,
-        icon: {
-          url: '',
-          size: new google.maps.Size(1, 1)
-        },
-        label: {
-          text: '😢',
-          color: '#ffff00',
-          fontFamily: 'emojione mozilla',
-          fontWeight: 'bold',
-          fontSize: '20px'
-        }
-        });
-      }
-  }
+  
 
   cityCircle.addListener('mouseover', mylistener);
 
@@ -277,36 +174,22 @@ function LatLngkikaku(makerlo,makerla){
     var r = (lo-makerlo)*(lo-makerlo)+(la-makerla)*(la-makerla);
     if(length>r){
       length = r;
-      Array_tweets = Array_lola[i][4];
+      Array_tweets = Array_lola[i][3];
     }
   }
   return Array_tweets;
 }
 
-console.log(LatLngkikaku(35.6811673, 139.7670516));
-
-console.log(Array_lola);
 
 for (var i=0; i<12; i++){
   var lo = Array_lola[i][0];
   var la = Array_lola[i][1];
-  var emotion_plus = Array_lola[i][2];
-  var emotion_minus = Array_lola[i][3];
+  var emotion = Array_lola[i][2];
   var LatLng = new google.maps.LatLng(lo,la);
-  console.log(LatLng);
-  var emotion =emotion_plus+emotion_minus;
 
-  var plusf = Math.ceil(6*emotion_plus);
-  var minusf = Math.floor(6*emotion_minus);
-  var emotionf = minusf+plusf;
-  console.log(emotion_plus);
-  console.log(emotion_minus);
+  console.log("emotion:"+emotion);
 
-  console.log(plusf);
-  console.log(minusf);
-  console.log(emotionf);
-
-  circle(LatLng,emotionf);
+  circle(LatLng,emotion);
 
 }
 
