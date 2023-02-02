@@ -6,9 +6,15 @@
   <meta charset="UTF-8">
   <title>感情可視化マップ</title>
   <script src="https://maps.google.com/maps/api/js?key={{ googlemap_key }}&language=ja&callback=Function.prototype"></script>
+  <!-- Optional JavaScript -->
+  <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
   <!-- Bootstrap CSS 読み込み -->
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-
   <style>
     html { height: 100% }
     body { height: 100% }
@@ -17,15 +23,22 @@
 </head>
 
 <body style="padding-top: 50px;">
+  {% include 'nav.html' %}
+  <div id="map" style="width: 100%; height: 97%;"></div>
+</body>
 
-<div id="map" style="width: 100%; height: 97%;"></div>
-
-
-<!-- {% load static %}
-<script src="{% static 'twitterapi_test/js/index.js' %}"></script> -->
 
 <script>
   var Array_lola = [[35.680959106959,139.76730676352,0,[]],[43.06417,141.34694,0,[]],[38.26889,140.86972,0,[]],[34.702485,135.495951,0,[]],[35.18028,136.90667,0,[]],[34.39639,132.45972,0,[]],[33.59056,130.40167,0,[]],[33.24917,133.28639,0,[]],[36.59444,136.62556,0,[]],[37.90222,139.02361,0,[]],[39.70361,141.1525,0,[]],[31.56028,130.55806,0,[]]];
+
+
+  var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
+  var Options = {
+  zoom: 5,      //地図の縮尺値
+  center: MyLatLng,    //地図の中心座標
+  mapTypeId: 'satellite'   //地図の種類
+  };
+  var map = new google.maps.Map(document.getElementById('map'), Options);
 
   function fetchData(){
     let xhr = new XMLHttpRequest();
@@ -40,286 +53,178 @@
     function get_array(){
       return Array_lola;
     }
+
     return get_array;
   }
 
-
+  window.onload = function(){
+    //1000ミリ秒（1秒）毎に関数「showNowDate()」を呼び出す
+    setInterval("progress()", 1000);
+  }
+  
+  // プログレスバー用の処理
+  function progress() {
+    var realTime = new Date();
+    var seconds  = realTime.getSeconds();
+    document.getElementById("prg").value = seconds;
+  }
+  
+  // 定期実行する処理
   function regular_execution(){  
     let fetchdata = fetchData();
     let get_array_val = fetchdata();
-    arraylola = eval(get_array_val);
-    console.log(arraylola);
+    let Array_lola = eval(get_array_val);
+    console.log(Array_lola);
     
-    var MyLatLng = new google.maps.LatLng(35.6811673, 139.7670516);
-    var Options = {
-    zoom: 5,      //地図の縮尺値
-    center: MyLatLng,    //地図の中心座標
-    mapTypeId: 'satellite'   //地図の種類
-    };
-    var map = new google.maps.Map(document.getElementById('map'), Options);
+    
+    // var map = new google.maps.Map(document.getElementById('map'), Options);
 
     for (var i=0; i<12; i++){
-      var lo = arraylola[i][0];
-      var la = arraylola[i][1];
-      var emotion_plus = arraylola[i][2];
-      // var emotion_minus = arraylola[i][3];
+      var lo = Array_lola[i][0];
+      var la = Array_lola[i][1];
+      var emotion = Array_lola[i][2];
       var LatLng = new google.maps.LatLng(lo,la);
-      // var emotion =emotion_plus+emotion_minus;
-      var plusf = Math.ceil(6*emotion_plus);
-      console.log(plusf);
-      console.log(LatLng);
-      // var minusf = Math.floor(6*emotion_minus);
-      // var emotionf = minusf+plusf;
-      circle(LatLng,plusf);
-    }
 
+      // console.log("emotion:"+emotion);
+
+      circle(LatLng,emotion);
+    }
   }
 
-  function circle(LatLng,emotion){
-      if(emotion>0){
-        switch (emotion){
-          case 1:
-          var cityCircle = new google.maps.Circle({
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillOpacity: 0.60,
-              map,
-              center: LatLng,
-              radius: 70000,
-              fillColor: "#FF7a7a",
-              strokeColor: "#FF0000",
-          });
-            break;
-          case 2:
-          var cityCircle = new google.maps.Circle({
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillOpacity: 0.60,
-              map,
-              center: LatLng,
-              radius: 70000,
-              fillColor: "#FF6666",
-              strokeColor: "#FF0000",
-          });
-            break;
-          case 3:
-          var cityCircle = new google.maps.Circle({
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillOpacity: 0.60,
-              map,
-              center: LatLng,
-              radius: 70000,
-              fillColor: "#FF5151",
-              strokeColor: "#FF0000",
-          });
-            break;
-          case 4:
-          var cityCircle = new google.maps.Circle({
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillOpacity: 0.60,
-              map,
-              center: LatLng,
-              radius: 70000,
-              fillColor: "#FF2d2d",
-              strokeColor: "#FF0000",
-          });
-            break;
-          case 5:
-          var cityCircle = new google.maps.Circle({
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillOpacity: 0.60,
-              map,
-              center: LatLng,
-              radius: 70000,
-              fillColor: "#FF0f0f",
-              strokeColor: "#FF0000",
-          });
-          break;
-          case 6:
-          var cityCircle = new google.maps.Circle({
-              strokeOpacity: 0.8,
-              strokeWeight: 2,
-              fillOpacity: 0.60,
-              map,
-              center: LatLng,
-              radius: 70000,
-              fillColor: "#FF0000",
-              strokeColor: "#FF0000",
-          });
-          break;
-          default:
-        }
-
-        new google.maps.Marker({
-            position: LatLng,
-            map,
-            icon: {
-              url: '',
-              size: new google.maps.Size(1, 1)
-            },
-            label: {
-              text: "😊",
-              color: '#ffff00',
-              fontFamily: 'sans-serif',
-              fontWeight: 'bold',
-              fontSize: '20px'
-            }
-            });
-      }else {
-        switch (emotion){
-        case -1:
-        var cityCircle = new google.maps.Circle({
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillOpacity: 0.60,
-            map,
-            center: LatLng,
-            radius: 70000,
-            fillColor: "#7affff",
-            strokeColor: "#00ffff",
-        });
-          break;
-        case -2:
-        var cityCircle = new google.maps.Circle({
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillOpacity: 0.60,
-            map,
-            center: LatLng,
-            radius: 70000,
-            fillColor: "#00ffff",
-            strokeColor: "#00ffff",
-        });
-          break;
-        case -3:
-        var cityCircle = new google.maps.Circle({
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillOpacity: 0.60,
-            map,
-            center: LatLng,
-            radius: 70000,
-            fillColor: "#389bff",
-            strokeColor: "#00ffff",
-        });
-        break;
-        case 0:
-        var cityCircle = new google.maps.Circle({
-            strokeOpacity:0.8,
-            strokeWeight: 2,
-            fillOpacity: 0.15,
-            map,
-            center: LatLng,
-            radius: 70000,
-            fillColor: "#ffff00",
-            strokeColor: "#ffff00",
-        });
-        break;
-        case -4:
-        var cityCircle = new google.maps.Circle({
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillOpacity: 0.60,
-            map,
-            center: LatLng,
-            radius: 70000,
-            fillColor: "#198cff",
-            strokeColor: "#00ffff",
-        });
-        break;
-        case -5:
-        var cityCircle = new google.maps.Circle({
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillOpacity: 0.60,
-            map,
-            center: LatLng,
-            radius: 70000,
-            fillColor: "#007fff",
-            strokeColor: "#00ffff",
-        });
-          break;
-        case -6:
-        var cityCircle = new google.maps.Circle({
-            strokeOpacity: 0.8,
-            strokeWeight: 2,
-            fillOpacity: 0.60,
-            map,
-            center: LatLng,
-            radius: 70000,
-            fillColor: "#0000ff",
-            strokeColor: "#00ffff",
-        });
-        break;
-        default:
-        }
-        if(emotion!=0){
-        new google.maps.Marker({
-            position: LatLng,
-            map,
-            icon: {
-              url: '',
-              size: new google.maps.Size(1, 1)
-            },
-            label: {
-              text: '😢',
-              color: '#ffff00',
-              fontFamily: 'emojione mozilla',
-              fontWeight: 'bold',
-              fontSize: '20px'
-            }
-            });
-          }
-      }
-
-      cityCircle.addListener('mouseover', mylistener);
-
-      function mylistener(event){
-          //marker作成
-          var coposition = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
-          var comment = LatLngkikaku(event.latLng.lat(), event.latLng.lng());
-          var navcontent =""
-          for (var i = 0; i < comment.length; i++) {
-              navcontent =navcontent+"<div class='sample'><img src='{% static 'twitterapi_test/icon.png' %}' width='20' height='20' >"+comment[i]+"</div></br>"
-          }
-          var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
-                  content: navcontent, // 吹き出しに表示する内容
-                  position : coposition,
-          })
-          infoWindow.open(map);
-          cityCircle.addListener('mouseout', function() { // マーカーをクリックしたとき
-              infoWindow.close(map); // 吹き出しの表示
-          });
-      }
-    }
-
-    function LatLngkikaku(makerlo,makerla){
+  function LatLngkikaku(makerlo,makerla){
       var length = 10000000;
       var o,a,emo;
       var Array_tweets;
       for(var i=0; i<12; i++){
-        var lo = arraylola[i][0];
-        var la = arraylola[i][1];
+        var lo = Array_lola[i][0];
+        var la = Array_lola[i][1];
         var r = (lo-makerlo)*(lo-makerlo)+(la-makerla)*(la-makerla);
         if(length>r){
           length = r;
-          Array_tweets = arraylola[i][3];
+          Array_tweets = Array_lola[i][3];
         }
       }
       return Array_tweets;
     }
 
-  setInterval(regular_execution, 10000);
+  function circle(LatLng,emotion){
+    if(emotion>0 && emotion<0.02){
+      text = "🤗";
+      color = "#FF7a7a";
+    }
+    else if(emotion>=0.02 && emotion<0.04){
+      text = "🤗";
+      color = "#FF6666";
+    }
+    else if(emotion>=0.04 && emotion<0.06){
+      text = "😊";
+      color = "#FF4d4d";
+    }
+    else if(emotion>=0.06 && emotion<0.08){
+      text = "😊";
+      color = "#FF3333";
+    }
+    else if(emotion>=0.08 && emotion<0.1){
+      text = "😊";
+      color = "#FF1a1a";
+    }
+    else if(emotion>=0.1 && emotion<0.12){
+      text = "😊";
+      color = "#FF0000";
+    }
+    else if(emotion>=0.12 && emotion<0.14){
+      text = "😊";
+      color = "#e60000";
+    }
+    else if(emotion>=0.14){
+      text = "😊";
+      color = "#cc0000";
+    }
+    // だんだん青が濃くなっていく
+    else if(emotion<=0 && emotion>-0.02){
+      text = "😢";
+      color = "#7a7aff";
+    }
+    else if(emotion<=-0.02 && emotion>-0.04){
+      text = "😢";
+      color = "#6666ff";
+    }
+    else if(emotion<=-0.04 && emotion>-0.06){
+      text = "😢";
+      color = "#4d4dff";
+    }
+    else if(emotion<=-0.06 && emotion>-0.08){
+      text = "😢";
+      color = "#3333ff";
+    }
+    else if(emotion<=-0.08 && emotion>-0.1){
+      text = "😢";
+      color = "#1a1aff";
+    }
+    else if(emotion<=-0.1 && emotion>-0.12){
+      text = "😢";
+      color = "#0000ff";
+    }
+    else if(emotion<=-0.12 && emotion>-0.14){
+      text = "😢";
+      color = "#0000e6";
+    }
+    else if(emotion<=-0.14){
+      text = "😢";
+      color = "#0000cc";
+    }
+    else{
+      text = "😐";
+      color = "#ffff00";
+    }
+    var cityCircle = new google.maps.Circle({
+      strokeColor: color,
+      strokeOpacity: 0.8,
+      strokeWeight: 2,
+      fillColor: color,
+      fillOpacity: 0.60,
+      map: map,
+      center: LatLng,
+      radius: 100000
+    });
+    new google.maps.Marker({
+          position: LatLng,
+          map,
+          icon: {
+            url: '',
+            size: new google.maps.Size(1, 1)
+          },
+          label: {
+            text: text,
+            color: '#ffff00',
+            fontFamily: 'sans-serif',
+            fontWeight: 'bold',
+            fontSize: '20px'
+          }
+    });
+    
+    cityCircle.addListener('mouseover', mylistener);
+
+    function mylistener(event){
+      //marker作成
+      var coposition = new google.maps.LatLng(event.latLng.lat(), event.latLng.lng());
+      var comment = LatLngkikaku(event.latLng.lat(), event.latLng.lng());
+      var navcontent =""
+      for (var i = 0; i < comment.length; i++) {
+          navcontent =navcontent+"<div class='sample'><img src='{% static 'twitterapi_test/icon.png' %}' width='20' height='20' >"+comment[i]+"</div></br>"
+      }
+
+      var infoWindow = new google.maps.InfoWindow({ // 吹き出しの追加
+              content: navcontent, // 吹き出しに表示する内容
+              position : coposition,
+      })
+      infoWindow.open(map);
+      cityCircle.addListener('mouseout', function() { // マーカーをクリックしたとき
+          infoWindow.close(map); // 吹き出しの表示
+      });
+    }
+  } 
+  setInterval(regular_execution, 60000);
 </script>
-<!-- Optional JavaScript -->
-<!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.tablesorter/2.31.0/js/jquery.tablesorter.min.js"></script>
 </body>
 </html>
